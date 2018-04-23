@@ -32,7 +32,7 @@ class GildedRose {
                 item.decreaseSellIn();
             }
 
-            if (item.sellIn < 0) {
+            if (sellByDatePassed(item)) {
                 if (isBackStage(item)){
                     item.quality = 0;
                 } else if (isWorstWhenOld(item) && isNotLegendaryItem(item)) {
@@ -42,6 +42,10 @@ class GildedRose {
                 }
             }
         }
+    }
+
+    private boolean sellByDatePassed(Item item) {
+        return item.sellIn < 0;
     }
 
     private boolean isWorstWhenOld(Item item) {
