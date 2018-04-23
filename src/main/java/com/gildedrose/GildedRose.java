@@ -10,36 +10,49 @@ class GildedRose {
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
             final Item item = items[i];
-            if (isWorstWhenOld(item)) {
-                if (isNotLegendaryItem(item)) {
-                    item.decreaseQuality();
-                }
-            } else {
-                item.increaseQuality();
 
-                if (isBackStage(item)) {
-                    if (item.sellIn < 11) {
-                        item.increaseQuality();
-                    }
+            handleQuality(item);
 
-                    if (item.sellIn < 6) {
-                        item.increaseQuality();
-                    }
-                }
-            }
+            decreaseSellIn(item);
 
+            handleSellByDatePassed(item);
+        }
+    }
+
+    private void handleQuality(Item item) {
+        if (isWorstWhenOld(item)) {
             if (isNotLegendaryItem(item)) {
-                item.decreaseSellIn();
+                item.decreaseQuality();
             }
+        } else {
+            item.increaseQuality();
 
-            if (sellByDatePassed(item)) {
-                if (isBackStage(item)){
-                    item.quality = 0;
-                } else if (isWorstWhenOld(item) && isNotLegendaryItem(item)) {
-                    item.decreaseQuality();
-                } else {
+            if (isBackStage(item)) {
+                if (item.sellIn < 11) {
                     item.increaseQuality();
                 }
+
+                if (item.sellIn < 6) {
+                    item.increaseQuality();
+                }
+            }
+        }
+    }
+
+    private void decreaseSellIn(Item item) {
+        if (isNotLegendaryItem(item)) {
+            item.decreaseSellIn();
+        }
+    }
+
+    private void handleSellByDatePassed(Item item) {
+        if (sellByDatePassed(item)) {
+            if (isBackStage(item)){
+                item.quality = 0;
+            } else if (isWorstWhenOld(item) && isNotLegendaryItem(item)) {
+                item.decreaseQuality();
+            } else {
+                item.increaseQuality();
             }
         }
     }
