@@ -57,6 +57,15 @@ public class GildedRoseTest {
     }
 
     @Test
+    public void tripleDecreaseWithBackStageUnder6Days() {
+        Item[] items = new Item[] { new Item(BACKSTAGE_TICKET, 5, 47) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(4, app.items[0].sellIn);
+        assertEquals(50, app.items[0].quality);
+    }
+
+    @Test
     public void qualityDecreeseTwiceWithSellInUnderZeroAndNotBackStage() {
         Item[] items = new Item[] { new Item(OTHER, -1, 47) };
         GildedRose app = new GildedRose(items);
