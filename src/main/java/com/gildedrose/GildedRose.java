@@ -23,6 +23,9 @@ class GildedRose {
         if (isWorstWhenOld(item)) {
             if (isNotLegendaryItem(item)) {
                 item.decreaseQuality();
+                if (isConjured(item)){
+                    item.decreaseQuality();
+                }
             }
         } else {
             item.increaseQuality();
@@ -37,6 +40,10 @@ class GildedRose {
                 }
             }
         }
+    }
+
+    private boolean isConjured(Item item) {
+        return item.name.contains("Conjured");
     }
 
     private void decreaseSellIn(Item item) {

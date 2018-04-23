@@ -74,4 +74,13 @@ public class GildedRoseTest {
         assertEquals(45, app.items[0].quality);
     }
 
+    @Test
+    public void qualityDecreeseTwiceWithConjuredItems() {
+        Item[] items = new Item[] { new Item("Conjured item", 5, 47) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(4, app.items[0].sellIn);
+        assertEquals(45, app.items[0].quality);
+    }
+
 }
