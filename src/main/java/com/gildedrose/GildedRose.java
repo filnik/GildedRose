@@ -16,8 +16,8 @@ class GildedRose {
                 increaseQuality(item,
                         true,
                         sellInDateHasPassed(item),
-                        isBackStage(item) && item.sellIn < 11,
-                        isBackStage(item) && item.sellIn < 6);
+                        backStageAtDay(item, 11),
+                        backStageAtDay(item, 6));
             } else {
                 decreaseQuality(item,
                         true,
@@ -25,12 +25,16 @@ class GildedRose {
                         isNotLegendaryItem(item) && sellInDateHasPassed(item));
             }
 
-            if (isBackStage(item) && sellInDateHasPassed(item)) {
+            decreaseSellIn(item);
+
+            if (backStageAtDay(item, 0)) {
                 item.quality = 0;
             }
-
-            decreaseSellIn(item);
         }
+    }
+
+    private boolean backStageAtDay(Item item, int day) {
+        return isBackStage(item) && item.sellIn < day;
     }
 
     private boolean sellInDateHasPassed(Item item) {
